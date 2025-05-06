@@ -231,15 +231,15 @@ fig_scatter.add_trace(
 
 
 # Aggiungi linea di tendenza al grafico
-fig_scatter.add_trace(
-    go.Scatter(
-        x=x_vals,
-        y=trendline,
-        mode='lines',
-        name='Trend Globale',
-        line=dict(dash='dash', color='black', width=2)
-    )
-)
+#fig_scatter.add_trace(
+#    go.Scatter(
+#        x=x_vals,
+#        y=trendline,
+#        mode='lines',
+#        name='Trend Globale',
+#        line=dict(dash='dash', color='black', width=2)
+#    )
+#)
 
 st.plotly_chart(fig_scatter, use_container_width=True)
 
