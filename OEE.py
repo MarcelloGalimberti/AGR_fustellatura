@@ -254,16 +254,23 @@ with tab2:
 
     # Funzione per calcolo Z-Score
     def calculate_z_score_series(series, robust=False):
+        # Return zeros if series is empty or all NaNs to avoid errors
+        if series.dropna().empty:
+             return pd.Series(np.nan, index=series.index)
+
         if robust:
             median = series.median()
             # MAD = Median Absolute Deviation
             mad = (series - median).abs().median()
             if mad == 0:
-                return np.zeros(len(series)) # O gestisci diversamente, es. return NaN
+                return pd.Series(0, index=series.index)
             # Fattore 0.6745 per rendere MAD comparabile a STD su dist. normale
             return 0.6745 * (series - median) / mad
         else:
-            return (series - series.mean()) / series.std()
+            std = series.std()
+            if std == 0 or np.isnan(std):
+                return pd.Series(0, index=series.index)
+            return (series - series.mean()) / std
 
     
     for reparto in reparti_periodo:
@@ -295,6 +302,7 @@ with tab2:
                 st.plotly_chart(grafico_scostamenti_z_score(df_gruppi), use_container_width=True, key=f"scost_z_{reparto}_{gruppi}")
             with col_box:
                 st.plotly_chart(boxplot_scostamenti(df_gruppi), use_container_width=True, key=f"boxplot_scost_{reparto}_{gruppi}")
+            st.dataframe(df_gruppi)
         st.markdown("---")
 
     st.subheader('Analisi capoconti', divider='grey')
