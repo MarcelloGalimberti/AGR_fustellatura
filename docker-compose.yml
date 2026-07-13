@@ -5,3 +5,8 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8511:8501"
+    environment:
+      - OPENBLAS_NUM_THREADS=1
+      - OMP_NUM_THREADS=1
+      - MKL_NUM_THREADS=1
+      - NUMEXPR_NUM_THREADS=1
