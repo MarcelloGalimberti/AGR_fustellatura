@@ -1,0 +1,11 @@
+.git
+__pycache__
+*.pyc
+.venv
+venv
+
+*.pptx
+*.pdf
+*.docx
+LEAN_last2Y.xlsx
+Statist9-*.xlsx
